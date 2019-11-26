@@ -26,7 +26,7 @@ jobs:
     - name: Decrypt secrets
       run: sops --decrypt config/secrets/ci.enc.yml > config/secrets/ci.yml
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: /tmp/sa.conf
+        GOOGLE_APPLICATION_CREDENTIALS: /tmp/sa.json
     
     - name: Dump secrets
       run: cat config/secrets/ci.yml
