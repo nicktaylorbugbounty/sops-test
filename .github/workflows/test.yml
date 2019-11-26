@@ -16,7 +16,7 @@ jobs:
         GCLOUD_AUTH: ${{ secrets.GCP_SERVICE_ACCOUNT }}
     
     - name: Load Application Default Credentials
-      run: base64 -d <(echo $GOOGLE_APPLICATION_CREDENTIALS) > /tmp/sa.json
+      run: base64 -d echo $GOOGLE_APPLICATION_CREDENTIALS > /tmp/sa.json
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       
