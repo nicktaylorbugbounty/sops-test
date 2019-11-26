@@ -17,7 +17,7 @@ jobs:
         GCLOUD_AUTH: ${{ secrets.GCP_SERVICE_ACCOUNT }}
     
     - name: Load Application Default Credentials
-      run: echo $GOOGLE_APPLICATION_CREDENTIALS > /sa.json && export GOOGLE_APPLICATION_CREDENTIALS=/sa.json
+      run: echo $GOOGLE_APPLICATION_CREDENTIALS > /tmp/sa.json && export GOOGLE_APPLICATION_CREDENTIALS=/tmp/sa.json
       
     - name: Install Sops
       run: wget https://github.com/mozilla/sops/releases/download/3.4.0/sops_3.4.0_amd64.deb && sudo dpkg -i sops_3.4.0_amd64.deb
