@@ -1,0 +1,27 @@
+name: Test in a JS Workflow
+on: [push]
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        version: '270.0.0'
+        service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+    
+    - name: Configure Application Default Credentials
+      run: gcloud auth application-default login
+    
+    - name: Install Sops
+      run: wget https://github.com/mozilla/sops/releases/download/3.4.0/sops_3.4.0_amd64.deb && sudo dpkg -i sops_3.4.0_amd64.deb
+    
+    - name: Decrypt secrets
+      run: sops --decrypt config/secrets/ci.enc.yml > config/secrets/ci.yml
+    
+    - name: Dump secrets
+      run: cat config/secrets/ci.yml
